@@ -9,18 +9,30 @@
 
 (def total-de-vidas 6)
 
+(defn ganhou[] (println "Voce ganhou"))
+
+
+(defn letras-faltantes [palavra acertos]
+  (remove (fn [letra] (contains? acertos (str letra))) palavra)
+)
+
+(defn acertou-a-palavra-toda? [palavra acertos] 
+  (empty? (letras-faltantes palavra acertos))
+)
+
+
 (defn perdeu[] (println "Voce perdeu"))
 
-(defn jogo[vidas]
-  (if (= vidas 0)
-    (perdeu)
-    (do
-      (println vidas)
-      (jogo(dec vidas))
-
-    )
+(defn jogo [vidas palavra acertos]
+  (if (= vidas 0) 
+      (perdeu)
+      (if (acertou-a-palavra-toda? palavra acertos)
+          (ganhou)
+          (print "Chuta, amigo!")
+      )
   )
 )
+
 
 (defn -main
   "I don't do a whole lot ... yet."
