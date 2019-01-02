@@ -20,6 +20,16 @@
   (empty? (letras-faltantes palavra acertos))
 )
 
+(defn le-letra! [] (read-line))
+
+(defn acertou? [palavra chute] (contains? {:palavra nil} :chute) )
+
+(defn avalia-chute [chute vidas palavra acertos]
+    (if (acertou? palavra chute)
+        (jogo vidas palavra (conj acertos chute))
+        (jogo (dec vidas) palavra acertos)
+    )
+)
 
 (defn perdeu[] (println "Voce perdeu"))
 
@@ -28,11 +38,10 @@
       (perdeu)
       (if (acertou-a-palavra-toda? palavra acertos)
           (ganhou)
-          (print "Chuta, amigo!")
+          (avalia-chute (le-letra!) vidas palavra acertos)
       )
   )
 )
-
 
 (defn -main
   "I don't do a whole lot ... yet."
